@@ -136,7 +136,10 @@ class BST():
                     queue.append(cur.right)
     
     def remove_min(self):
+        minimum = self.minimum()
         self.__root = self.__remove_min(self.__root)
+
+        return minimum
 
     #删除最小值 递归 删除以Node为根的BST的最小值
     def __remove_min(self,node):
@@ -159,7 +162,9 @@ class BST():
                 return node
 
     def remove_max(self):
+        maximum = self.maximum()
         self.__root = self.__remove_max(self.__root)
+        return maximum
 
     #删除最大值 递归 删除以Node为根的BST的最大值
     def __remove_max(self,node):
@@ -180,46 +185,56 @@ class BST():
             else:
                 node.right = self.__remove_max(node.right)
                 return node
-
-if __name__ == '__main__':
-    bst = BST()
-    nums = [5, 3, 6, 8, 4, 2, 2]
-    for num in nums:
-        bst.add1(num)
-    bst.in_order()
-    print ("元素个数为",bst.get_size())
-    print (bst.contains(9))
-
-    bst.remove_min()
-    bst.in_order()
-    print ("元素个数为",bst.get_size())
-
-    bst.remove_max()
-    bst.in_order()
-    print ("元素个数为",bst.get_size())
-
-
-
-            
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
         
-            
-
-
+    def minimum(self):
+        if self.__size != 0:
+            minimum = self.__minimum(self.__root)
+        return minimum
     
+    def __minimum(self,node):
+        if node.left == None:
+            return node
+        return self.__minimum(node.left)
 
+    def maximum(self):
+        if self.__size != 0:
+            maximum = self.__maximum(self.__root)
+        return maximum
+    
+    def __maximum(self,node):
+        if node.right == None:
+            return node
+        return self.__maximum(node.right)
 
+    def remove(self,e):
+        self.__root = self.__remove(self.__root,e)
+
+    #递归返回删除了以Node为根节点的BST中的元素e
+    def __remove(self,node,e):
+        if node == None:
+            return 
+        if e < node.val:
+            node.left = self.__remove(node.left,e)
+            return node
+        elif e > node.val:
+            node.right = self.__remove(node.right,e)
+            return node
+        #找到了要删除的元素
+        else:
+            if node.left == None:
+                right_node = node.right
+                node.right = None
+                self.__size -=1
+                return right_node
+            if node.right == None:
+                left_node = node.left
+                node.left = None
+                self.__size -=1
+                return left_node
             
+            successor = self.__minimum(node.right)
+            successor.right = self.__remove_min(node.right)
+            successor.left = node.left
+            node.left = node.right = None
+            return successor
+   
