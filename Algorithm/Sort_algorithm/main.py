@@ -1,8 +1,8 @@
 from insert_sort import insert_sort
 from merge_sort import merge_sort
-# from quick_sort import quick_sort
+from quick_sort import quick_sort
+from quick_sort import quick_sort2
 from select_sort import select_sort
-
 
 nums = [1,24,6,2000,8,33,90,35,75,19,3,66,2,300,41,78]
 print ("乱序元素：",nums)
@@ -21,5 +21,10 @@ print ("归并排序：",nums3)
 print ("--------------------------------------------------------------------------------")
 nums = [1,24,6,2000,8,33,90,35,75,19,3,66,2,300,41,78]
 print ("乱序元素：",nums)
-# nums4 = quick_sort(nums)
-# print ("快速排序：",nums4)
+nums4 = quick_sort(nums)
+print ("快速排序：",nums4)
+print ("--------------------------------------------------------------------------------")
+nums = [1,24,6,2000,8,33,90,35,75,19,3,66,2,300,41,78]
+print ("乱序元素：",nums)
+nums5 = quick_sort2(nums)
+print ("两路快排：",nums5)
